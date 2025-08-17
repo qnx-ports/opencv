@@ -47,3 +47,4 @@ if(OPENCV_DISABLE_THREAD_SUPPORT)
   # described in `ts_gtest.h`.
   ocv_target_compile_definitions(${the_module} PUBLIC GTEST_HAS_PTHREAD=0)
 endif()
+target_link_libraries(opencv_ts PUBLIC regex)

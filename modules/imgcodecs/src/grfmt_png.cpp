@@ -59,7 +59,11 @@
 #endif
 
 #ifdef HAVE_LIBPNG_PNG_H
+#ifdef __QNX__
+#include <png.h>
+#else
 #include <libpng/png.h>
+#endif
 #else
 #include <png.h>
 #endif

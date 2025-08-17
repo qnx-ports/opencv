@@ -264,7 +264,8 @@ TEST(Objdetect_QRCode_Encode_Decode, regression)
                 int true_capacity = establishCapacity(mode, version, cur_capacity);
 
                 std::string input_info = symbol_set;
-                std::random_shuffle(input_info.begin(),input_info.end());
+                //std::random_shuffle(input_info.begin(),input_info.end());
+                std::shuffle(input_info.begin(), input_info.end(), std::mt19937{std::random_device{}()});
                 int count = 0;
                 if((int)input_info.length() > true_capacity)
                 {
