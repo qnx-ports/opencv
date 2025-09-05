@@ -58,10 +58,10 @@
 #  define _FILE_OFFSET_BITS 0
 #endif
 
-#ifdef HAVE_LIBPNG_PNG_H
-#include <libpng/png.h>
+#if defined(HAVE_LIBPNG_PNG_H) && !defined(__QNX__)
+    #include <libpng/png.h>
 #else
-#include <png.h>
+    #include <png.h>
 #endif
 #include <zlib.h>
 

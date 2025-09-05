@@ -45,6 +45,14 @@
 #include <iostream>
 #include <ostream>
 
+#ifdef __QNX__
+    #include <unistd.h>
+    #include <sys/neutrino.h>
+    #include <sys/syspage.h>
+#ifdef __aarch64__
+    #include <aarch64/syspage.h>
+#endif
+#endif
 #include <opencv2/core/utils/configuration.private.hpp>
 #include <opencv2/core/utils/trace.private.hpp>
 
@@ -563,7 +571,7 @@ struct HWFeatures
         }
     #endif // CV_CPUID_X86
 
-    #if defined __ANDROID__ || defined __linux__ || defined __FreeBSD__ || defined __QNX__
+    #if defined __ANDROID__ || defined __linux__ || defined __FreeBSD__
     #ifdef __aarch64__
         have[CV_CPU_NEON] = true;
         have[CV_CPU_FP16] = true;
@@ -642,6 +650,15 @@ struct HWFeatures
         have[CV_CPU_FP16] = true;
         #endif
     #endif
+    #elif defined __QNX__
+    #ifdef __aarch64__
+        if (SYSPAGE_ENTRY(cpuinfo)->flags & AARCH32_CPU_FLAG_NEON) {
+            have[CV_CPU_NEON] = true;
+        }
+    #endif
+        if (SYSPAGE_ENTRY(cpuinfo)->flags & CPU_FLAG_FPU) {
+            have[CV_CPU_FP16] = true;
+        }
     #endif
     #if defined _ARM_ && (defined(_WIN32_WCE) && _WIN32_WCE >= 0x800)
         have[CV_CPU_NEON] = true;
