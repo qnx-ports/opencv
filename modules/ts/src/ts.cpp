@@ -1035,12 +1035,7 @@ static std::string findData(const std::string& relative_path, bool required, boo
         }
     }
 #ifdef OPENCV_TEST_DATA_INSTALL_PATH
-#ifdef __QNX__
-    datapath = OPENCV_TEST_DATA_INSTALL_PATH;
-#else
     datapath = path_join("./", OPENCV_TEST_DATA_INSTALL_PATH);
-#endif
-
     if (isDirectory(datapath))
     {
         for(size_t i = search_subdir.size(); i > 0; i--)
